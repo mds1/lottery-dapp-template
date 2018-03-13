@@ -1,0 +1,32 @@
+.quasar
+.DS_Store
+.thumbs.db
+node_modules
+/dist
+/src-cordova/platforms
+/src-cordova/plugins
+/src-cordova/www
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# VScode workspace settings
+.vscode/
+static/dll.vendor.js
+dll
+
+# SSL cert stuff
+webpack_config/server.key
+webpack_config/server.crt
+webpack_config/server.csr
+
+# Ethereum build folder
+src/ethereum/build
