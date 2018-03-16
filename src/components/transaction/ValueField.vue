@@ -1,8 +1,8 @@
 <template>
   <div>
 
-    <q-field label="Value" :label-width='5' :error="$v.value.$error" :error-label="'Value must be greater than or equal to ' + minValue">
-      <q-input v-model='value' v-on:input="updateState" type='number' :min=minValue :step='1e-18' @input="$v.value.$touch()" placeholder='0' suffix='ETH' autofocus/>
+    <q-field label="Value" :label-width='5' :error="$v.value.$error" :error-label="`Value must be greater than or equal to ${minValue}`">
+      <q-input v-model='value' v-on:input="updateState" type='number' :min=minValue :step='1e-18' @input="$v.value.$touch()" placeholder='0' suffix='ETH' />
     </q-field>
 
   </div>

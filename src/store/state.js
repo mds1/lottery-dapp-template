@@ -8,9 +8,7 @@ export default {
     from: '',
     to: null,
     value: null,
-    gas: '',
-    gasPrice: '',
-    data: '',
-    nonce: ''
+    gas: '50000', // set default gas limit, aamount of gas to use
+    gasPrice: 1, // price of gas
   }
 }

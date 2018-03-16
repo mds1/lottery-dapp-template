@@ -15,6 +15,27 @@ export function requiredNetwork() {
   return 'rinkeby'
 }
 
+export async function currentNetwork() {
+  // returns the name of the network the user is currently connected to
+  const netId = await web3.eth.net.getId()
+
+  switch (netId) {
+    case 1:
+      return 'Main'
+    case 2:
+      return 'Morden' // Morden test network is deprecated
+    case 3:
+      return 'Ropsten'
+    case 4:
+      return 'Rinkeby'
+    case 42:
+      return 'Kovan'
+    default:
+      return 'an unknown Network'
+  }
+
+}
+
 export function capitalizeFirstLetter(string) {
   // capitalize the first letter of a string
   return string.charAt(0).toUpperCase() + string.slice(1)
@@ -49,7 +70,7 @@ export function formatNumberForWeb3(value) {
 //                                       Validators
 // =======================================================================================
 
-// Determine if an Ethereum address is valid
+// Check if an Ethereum address is valid
 export function isValidETHAddress(address) {
   return web3.utils.isAddress(address) && address.length == 42
 }

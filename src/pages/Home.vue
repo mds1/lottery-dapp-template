@@ -18,7 +18,7 @@
 import { mapActions } from 'vuex'
 import web3 from '@ethereum/web3'
 import lottery from '@ethereum/lotteryInstance.js'
-
+import { currentNetwork } from '@components/functions'
 import EnterForm from '@components/EnterForm.vue'
 
 export default {
@@ -46,7 +46,7 @@ export default {
     web3.eth.net.getId((err, netId) => {
       switch (netId) {
         case 1:
-          this.network = 'main'
+          this.network = 'Main'
           break
         case 2:
           this.network = 'Morden' // Morden test network is deprecated
