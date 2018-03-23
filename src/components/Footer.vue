@@ -6,20 +6,19 @@
       <!-- First column  -->
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 footer-col">
         <p class="footer-large">Donations are greatly appreciated!</p>
-        <p class="footer-small">ETH: 0x0000000000000000000000000000000000000000</p>
-        <p class="footer-small">BTC: 0000000000000000000000000000000000</p>
+        <p class="footer-small">ETH: 0x318e073ce8dad668e6d544b685656c57f8387c98</p>
       </div>
 
       <!-- Second column  -->
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 footer-col">
         <p class="footer-large">Check out the source code on GitHub</p>
-        <a class="footer-small" href="https://github.com/mds1/KeyStats">https://github.com/mds1/sitename</a>
+        <a class="footer-small" href="https://github.com/mds1/lottery-dapp-template">https://github.com/mds1/lottery-dapp-template</a>
       </div>
 
       <!-- Third column  -->
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 footer-col">
         <p class="footer-large">Questions, feedback, and suggestions</p>
-        <p class="footer-small">contact@sitename.com</p>
+        <p class="footer-small">Leave feedback on the GitHub page</p>
         <br>
         <p class="footer-end-left">SiteName &copy; 2018</p>
       </div>

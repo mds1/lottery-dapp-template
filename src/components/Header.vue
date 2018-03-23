@@ -23,17 +23,6 @@
           <!-- add spaces -->
           &nbsp;&nbsp;&nbsp;&nbsp;
 
-          <!-- tools page -->
-          <router-link to='/tools' tag='li' active-class='active-page'>
-            <a>
-              <!-- span is needed to center text vertically when the logo is taller than the text -->
-              Tools
-            </a>
-          </router-link>
-
-          <!-- add spaces -->
-          &nbsp;&nbsp;&nbsp;&nbsp;
-
           <!-- contact page -->
           <router-link to='/contact' tag='li' active-class='active-page'>
             <a>
