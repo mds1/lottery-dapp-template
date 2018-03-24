@@ -1,6 +1,12 @@
 <template>
   <!-- if you want automatic padding use "layout-padding" class -->
   <div class="layout-padding">
+    <!-- check to ensure: -->
+    <!--   1. MetaMask is installed -->
+    <!--   2. MetaMask account is unlocked -->
+    <!--   3. MetaMask is connected to the correct network -->
+    <app-meta-mask-check></app-meta-mask-check>
+
     <!-- your content -->
     <h3>Ethereum Lottery</h3>
     <p>This is the home page for the Ethereum lottery contract {{ contract.options.address }} </p>
@@ -18,8 +24,22 @@
 import { mapActions } from 'vuex'
 import web3 from '@ethereum/web3'
 import lottery from '@ethereum/lotteryInstance.js'
-import { currentNetwork } from '@components/functions'
-import EnterForm from '@components/EnterForm.vue'
+import { currentNetwork } from '@common/functions'
+// components
+import EnterForm from '@contract/EnterForm.vue'
+import MetaMaskCheck from '@common/MetaMaskCheck.vue'
+
+// TO DO:
+//   0. Make sure user inputs are sanitized with regexp
+//   1. Add a popup when the user loads the home page that checks:
+//        - If they have MetaMask installed
+//        - If so, check if their MetaMask account is unlocked
+//        - Then check that they are connected to the right network
+//   2. Update Lottery.sol to:
+//        - Use Oraclize or Town crier for random number generation
+//        - Set a user's chance of winning equal to entryPaid / potSize
+//   3. Add contract tab in header to show embedded smart contract code
+//
 
 export default {
   data() {
@@ -30,6 +50,7 @@ export default {
   },
 
   components: {
+    appMetaMaskCheck: MetaMaskCheck,
     appEnterForm: EnterForm,
   },
 

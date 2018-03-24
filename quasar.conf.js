@@ -38,6 +38,8 @@ module.exports = function (ctx) {
         cfg.resolve.alias = {
           ...cfg.resolve.alias,
           '@components': path.resolve(__dirname, './src/components'),
+          '@common': path.resolve(__dirname, './src/components/common'),
+          '@contract': path.resolve(__dirname, './src/components/contract'),
           '@pages': path.resolve(__dirname, './src/pages'),
           '@ethereum': path.resolve(__dirname, './src/ethereum'),
           '@src': path.resolve(__dirname, './src'),
@@ -56,7 +58,8 @@ module.exports = function (ctx) {
         'QField',
         'QInput',
         'QSpinner',
-        'QSlider'
+        'QSlider',
+        'QDialog'
       ],
       directives: [
         'Ripple'

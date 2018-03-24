@@ -6,9 +6,9 @@
       <nav class="wrapper">
 
         <!-- Left-aligned site name / link to home page -->
-        <router-link to='/'>
-          <img src="~assets/quasar-logo-full.svg" alt="Quasar PWA" height=40px>
-        </router-link>
+        <a href="https://www.ethereum.org/" target="_blank">
+          <img src="@src/statics/ethereum-logo.png" alt="Ethereum logo" height=70px>
+        </a>
 
         <!-- Right-aligned links to other pages -->
         <!-- home page -->

@@ -1,12 +1,11 @@
 <template>
   <!-- generic template for a form to send transaction to a smart contract -->
-  <!-- place this file in the src/components folder -->
   <div>
     <div class="form">
       <form v-on:submit.prevent='formSubmitted'>
 
         <div class="inputs">
-          <q-field label="Value" :label-width='5' :error="$v.value.$error" :error-label="'Value must be greater than or equal to ' + minValue">
+          <q-field label="Value" :label-width='5' :error="$v.value.$error" :error-label="`Value must be greater than or equal to ${minValue}`">
             <q-input v-model='value' type='number' :min=minValue :step='0.0001' @input="$v.value.$touch()" placeholder='0' suffix='ETH' autofocus/>
           </q-field>
         </div>
@@ -14,6 +13,7 @@
         <br>
 
         <q-btn :loading='txsent' color="primary" :disabled='$v.$invalid || txsent' v-model='txsent'>Enter Lottery!
+          <!-- configure button appearance for pending transactions  -->
           <q-spinner slot="loading" />
           <span slot="loading">&nbsp;&nbsp;Transaction pending...</span>
         </q-btn>
@@ -24,24 +24,11 @@
 </template>
 
 <script>
-// TODO
-//  1. check for any existing notifications and dismiss them -- THIS CURRENTLY DOES NOT WORK
-//  2. Add regexp functions to sanitize user inputs
-
-// Dependencies:
-//   vuelidate: npm install vuelidate --save (did I include this in the template?)
-
-// AFTERWARDS, UPDATE THE TEMPLATE WITH:
-//   1. this file             -- done
-//   2. functions.js          -- done
-//   3. main.js               -- done
-//   4. readme.md             -- done
 
 import lottery from '@ethereum/lotteryInstance.js'
 import web3 from '@ethereum/web3'
 import { required, minValue } from 'vuelidate/lib/validators'
-import decimal from 'vuelidate/lib/validators/decimal'
-import * as functions from '@components/functions.js'
+import * as functions from '@common/functions.js'
 
 export default {
   data() {
@@ -59,12 +46,10 @@ export default {
     // validate value entered into input field
     value: {
       required,
-      decimal,
       minValue(value) {
         return minValue(this.minValue)(value)
       }
     }
-
   },
 
   methods: {
@@ -135,7 +120,7 @@ export default {
           // display updated message to user
           sentAlert = functions.createTXAlert(sentHTML, 'warning')
 
-        })
+        }) // end .on('transactionHash')
 
         .on('receipt', function (receipt) {
 
@@ -181,9 +166,9 @@ export default {
               const confirmedHTML = '<br><br><b>Success!</b><br>Your transaction has been confirmed. For reference, your transaction ID is below.<br><br>' + txidHTML + '<br><br><br>'
               // display updated alert to user
               confirmedAlert = functions.createTXAlert(confirmedHTML, 'positive')
-            }
-          })
-        })
+            } // end if receipt.status === '0x0' / else
+          }) // end web3.eth.getTransactionReceipt
+        }) // end .on(receipt)
 
         .catch(function (err) {
 
@@ -214,15 +199,16 @@ export default {
 
           // display alert
           failedAlert = functions.createTXAlert(failedHTML, 'negative')
-        })
+        }) // end catch
 
         .finally(function () {
           // reset status of txsent flag, so user can send another tx if desired
           vm.txsent = false
-        });
-    }
-  }
-}
+        }); // end finally
+    } // end formSubmitted
+  } // end methods
+} // end export default
+
 </script>
 
 <style lang="stylus" scoped>
