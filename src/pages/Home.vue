@@ -10,12 +10,12 @@
     <!-- your content -->
     <h3>Ethereum Lottery</h3>
     <p>This is the home page for the Ethereum lottery contract {{ contract.options.address }} </p>
-    <p>This contract is managed by {{ this.$store.state.manager }}</p>
-    <p>There are currently {{ this.$store.state.players.length }} players entered competing for a prize of {{ this.$store.state.balance }} ETH!</p>
+    <p>This contract is managed by {{ this.$store.state.contract.manager }}</p>
+    <p>There are currently {{ this.$store.state.contract.players.length }} players entered competing for a prize of {{ this.$store.state.balance }} ETH!</p>
     <br>
-    <p>You are currently connected to the {{ network }} network</p>
+    <p>You are currently connected to the {{ this.$store.state.network.current }} network</p>
 
-    <app-enter-form :network=network></app-enter-form>
+    <app-enter-form></app-enter-form>
 
   </div>
 </template>
@@ -34,7 +34,8 @@ import MetaMaskCheck from '@common/MetaMaskCheck.vue'
 //   1. Add a popup when the user loads the home page that checks:
 //        - If they have MetaMask installed
 //        - If so, check if their MetaMask account is unlocked
-//        - Then check that they are connected to the right network
+//        - Then check that they are connected to the right network (if not, use infura node)
+//      Next steps here: finish actions/mutations, and dispatch them in the created hook
 //   2. Update Lottery.sol to:
 //        - Use Oraclize or Town crier for random number generation
 //        - Set a user's chance of winning equal to entryPaid / potSize
@@ -63,28 +64,9 @@ export default {
     // get contract balance
     this.$store.dispatch('setBalance')
 
-    // Check what network the user is connected to
-    web3.eth.net.getId((err, netId) => {
-      switch (netId) {
-        case 1:
-          this.network = 'Main'
-          break
-        case 2:
-          this.network = 'Morden' // Morden test network is deprecated
-          break
-        case 3:
-          this.network = 'Ropsten'
-          break
-        case 4:
-          this.network = 'Rinkeby'
-          break
-        case 42:
-          this.network = 'Kovan'
-          break
-        default:
-          this.network = 'an unknown Network'
-      }
-    })
+    // Get network information
+    this.$store.dispatch('set_requiredNetwork')
+    this.$store.dispatch('set_currentNetwork')
   },
 
   methods: {

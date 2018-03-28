@@ -40,7 +40,7 @@ export default {
     }
   },
 
-  props: ['network'],
+  // props: ['network'],
 
   validations: {
     // validate value entered into input field

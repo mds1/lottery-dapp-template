@@ -6,7 +6,7 @@
     <!--   3. MetaMask is connected to the correct network -->
 
     <!-- Check that MetaMask is installed -->
-    <div v-if="!isMetaMaskInstalled">
+    <div v-if="!this.$store.state.MetaMask.isInstalled">
       <q-dialog v-model="showDialog" stack-buttons prevent-close @ok="onOk">
         <!-- Dialog title -->
         <span slot="title">Hold up!</span>
@@ -40,13 +40,13 @@
     </div>
 
     <!-- Check that MetaMask is unlocked -->
-    <div v-if="!isMetaMaskUnlocked">
+    <div v-if="!this.$store.state.MetaMask.isUnlocked">
       <q-dialog v-model="showDialog" stack-buttons prevent-close @ok="onOk">
       </q-dialog>
     </div>
 
     <!-- Check that MetaMask is connected to the required network -->
-    <div v-if="!isMetaMaskOnCorrectNetwork">
+    <div v-if="!this.$store.state.MetaMask.isOnCorrectNetwork">
       <q-dialog v-model="showDialog" stack-buttons prevent-close @ok="onOk">
       </q-dialog>
     </div>
@@ -55,23 +55,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { requiredNetwork, currentNetwork } from '@common/functions'
 
 export default {
   data() {
     return {
-      isMetaMaskInstalled: false,
-      isMetaMaskUnlocked: false,
-      isMetaMaskOnCorrectNetwork: false,
-      requiredNetwork: '',
-      currentNetwork: ''
     }
   },
 
   computed: {
     showDialog: {
       get: function () {
-        return !this.isMetaMaskInstalled || !this.isMetaMaskUnlocked || !this.isMetaMaskOnCorrectNetwork
+        return !this.$store.state.isMetaMaskInstalled || !this.$store.state.isMetaMaskUnlocked || !this.$store.state.isMetaMaskOnCorrectNetwork
       },
       set: function (value) {
         return value
@@ -81,15 +77,13 @@ export default {
 
   created() {
     // ensure MetaMask is installed
-    if (typeof web3 !== 'undefined' && web3.currentProvider.isMetaMask === true) {
-      this.isMetaMaskInstalled = true
-    }
+    this.$store.dispatch('set_isMetaMaskInstalled')
 
-    // ensure MetaMask is unlocked
-    this.isMetaMaskUnlocked = true
+    // ensure MetaMask is unlocked (async)
+    this.$store.dispatch('set_isMetaMaskUnlocked')
 
-    // ensure MetaMask is connected to the correct network
-    this.isMetaMaskOnCorrectNetwork = true
+    // ensure MetaMask is connected to the correct network (async)
+    this.$store.dispatch('set_isMetaMaskOnCorrectNetwork')
   },
 
   methods: {
