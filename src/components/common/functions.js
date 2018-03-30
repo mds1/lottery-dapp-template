@@ -10,7 +10,7 @@ import web3 from '@ethereum/web3'
 
 export function requiredNetwork() {
   // returns the required network the user must be connected to in order to interact with this dapp
-  // this currently is not needed and is more applicable to deployed smart contracts
+  // format this using the same nomenclature given in the currentNetwork() function below
   return 'Rinkeby'
 }
 
@@ -30,7 +30,7 @@ export async function currentNetwork() {
     case 42:
       return 'Kovan'
     default:
-      return 'an unknown Network'
+      return 'an unknown network'
   }
 }
 

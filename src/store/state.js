@@ -6,9 +6,10 @@ export default {
     isOnCorrectNetwork: true
   },
 
+  // Network information
   network: {
-    required: '',
-    current: '',
+    required: '', // network required by the dapp (set in functions.js)
+    current: '', // network user is connected to
   },
 
   // Contract properties (require asynchronous calls)

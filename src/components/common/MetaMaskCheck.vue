@@ -9,9 +9,12 @@
     <div v-if="!this.$store.state.MetaMask.isInstalled">
       <q-dialog v-model="showDialog" stack-buttons prevent-close @ok="onOk">
         <!-- Dialog title -->
-        <span slot="title">Hold up!</span>
+        <div slot='title' class='dialog-title'>
+          {{ dialogTitle }}
+        </div>
 
-        <div slot="body">
+        <!-- Dialog body -->
+        <div slot="body" class='dialog-body'>
           <p>
             You need to install MetaMask in order to use this site. To do so, follow the steps below:
             <ol>
@@ -39,15 +42,21 @@
       </q-dialog>
     </div>
 
-    <!-- Check that MetaMask is unlocked -->
-    <div v-if="!this.$store.state.MetaMask.isUnlocked">
+    <!-- Check that MetaMask is unlocked AND/OR connected to the required network -->
+    <div v-if="(!this.$store.state.MetaMask.isUnlocked || !this.$store.state.MetaMask.isOnCorrectNetwork) && this.$store.state.MetaMask.isInstalled">
       <q-dialog v-model="showDialog" stack-buttons prevent-close @ok="onOk">
-      </q-dialog>
-    </div>
 
-    <!-- Check that MetaMask is connected to the required network -->
-    <div v-if="!this.$store.state.MetaMask.isOnCorrectNetwork">
-      <q-dialog v-model="showDialog" stack-buttons prevent-close @ok="onOk">
+        <!-- Dialog title -->
+        <div slot='title' class='dialog-title'>
+          {{ dialogTitle }}
+        </div>
+
+        <!-- Dialog body -->
+        <div slot="body" class='dialog-body'>
+          <p>
+            {{ getDialogMessage() }}
+          </p>
+        </div>
       </q-dialog>
     </div>
 
@@ -61,6 +70,7 @@ import { requiredNetwork, currentNetwork } from '@common/functions'
 export default {
   data() {
     return {
+      dialogTitle: 'Hold up!'
     }
   },
 
@@ -78,10 +88,8 @@ export default {
   created() {
     // ensure MetaMask is installed
     this.$store.dispatch('set_isMetaMaskInstalled')
-
     // ensure MetaMask is unlocked (async)
     this.$store.dispatch('set_isMetaMaskUnlocked')
-
     // ensure MetaMask is connected to the correct network (async)
     this.$store.dispatch('set_isMetaMaskOnCorrectNetwork')
   },
@@ -91,9 +99,43 @@ export default {
     onOk(data) {
       this.showDialog = false
     },
-  }
-}
+
+    // determine which message to show in the dialog
+    getDialogMessage() {
+      let msg
+      if (!this.$store.state.MetaMask.isOnCorrectNetwork && !this.$store.state.MetaMask.isUnlocked) {
+        // MetaMask is on the wrong network AND locked
+        msg = `You'll need to unlock MetaMask and connect to the ${this.$store.state.network.required} Network for this site to function properly.`
+      } else if (!this.$store.state.MetaMask.isOnCorrectNetwork) {
+        // MetaMask is unlocked, but on the wrong network
+        msg = `It looks like you're not connected to the right network. MetaMask must be connected to the ${this.$store.state.network.required} Network for this site to function properly.`
+      } else if (!this.$store.state.MetaMask.isUnlocked) {
+        // MetaMask is on the correct network, but locked
+        msg = 'It seems MetaMask is locked. Be sure to unlock MetaMask if you plan to interact with this site.'
+      } else {
+        // We should never get here
+        msg = `This message shouldn't be showing, so please let the developer know you saw this. In the meantime, please make sure you have MetaMask installed, unlocked, and connected to the ${this.$store.state.network.required} Network for this site to function properly.`
+      }
+      return msg
+    } // end getDialogMessage
+  } // end methods
+} // end export default
+
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+.dialog-title {
+  text-align: center;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif; // configure fonts to match main fonts specified in App.vue
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;
+}
+
+.dialog-body {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif; // configure fonts to match main fonts specified in App.vue
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
 </style>
