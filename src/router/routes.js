@@ -1,10 +1,10 @@
 import Home from '@pages/Home.vue'
-import Contact from '@pages/Contact.vue'
+import ContractSource from '@pages/ContractSource.vue'
 import Error404 from '@pages/Error404.vue'
 
 export default [
   { path: '/', component: Home },
-  { path: '/contact', component: Contact },
+  { path: '/contract', component: ContractSource, name: 'contractSource' },
 
   { // Always leave this as last one
     path: '*', component: Error404,

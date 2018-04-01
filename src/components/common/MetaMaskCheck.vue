@@ -1,9 +1,13 @@
 <template>
   <div>
-    <!-- check to ensure: -->
+    <!-- once per "session" check to ensure: -->
     <!--   1. MetaMask is installed -->
     <!--   2. MetaMask account is unlocked -->
     <!--   3. MetaMask is connected to the correct network -->
+    <!-- alert user if any of these conditions are not met -->
+    <!-- here, a "session" counts as a visit to the site -->
+    <!-- reloading the page starts a new "session" and thus shows the dialog again -->
+    <!-- this component is used by App.vue -->
 
     <!-- Check that MetaMask is installed -->
     <div v-if="!this.$store.state.MetaMask.isInstalled">

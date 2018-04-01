@@ -19,20 +19,6 @@
 import lottery from '@ethereum/lotteryInstance.js'
 import EnterForm from '@contract/EnterForm.vue'
 
-// TO DO:
-//   0. Make sure user inputs are sanitized with regexp
-//   1. Add a popup when the user loads the home page that checks:
-//        - If they have MetaMask installed
-//        - If so, check if their MetaMask account is unlocked
-//        - Then check that they are connected to the right network (if not, use infura node)
-//      Next steps here: finish actions/mutations, and dispatch them in the created hook
-//   2. Update Lottery.sol to:
-//        - Use Oraclize or Town crier for random number generation
-//        - Set a user's chance of winning equal to entryPaid / potSize
-//   3. Add contract tab in header to show embedded smart contract code
-//   4. Read Web3 design principles at the link below and add corresponding features
-//      https://medium.com/@lyricalpolymath/web3-design-principles-f21db2f240c1
-
 export default {
   data() {
     return {

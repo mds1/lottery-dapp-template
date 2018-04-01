@@ -23,9 +23,9 @@
           &nbsp;&nbsp;&nbsp;&nbsp;
 
           <!-- contact page -->
-          <router-link to='/contact' tag='li' active-class='active-page'>
+          <router-link :to='{ name: "contractSource"}' tag='li' active-class='active-page'>
             <a>
-              Contact
+              Smart Contract
             </a>
           </router-link>
         </ul>
