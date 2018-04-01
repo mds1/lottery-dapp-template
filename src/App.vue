@@ -1,6 +1,16 @@
 <template>
   <!-- Don't drop "q-app" class -->
   <div id="q-app" class="Site">
+
+    <!-- once per "session" check to ensure: -->
+    <!--   1. MetaMask is installed -->
+    <!--   2. MetaMask account is unlocked -->
+    <!--   3. MetaMask is connected to the correct network -->
+    <!-- alert user if any of these conditions are not met -->
+    <!-- here, a "session" counts as a visit to the site -->
+    <!-- reloading the page starts a new "session" and thus shows the dialog again -->
+    <app-meta-mask-check/>
+
     <!-- header -->
     <div class="Site-header">
       <app-header/>
@@ -24,19 +34,30 @@
 /*
  * Root component
  */
+import MetaMaskCheck from '@common/MetaMaskCheck.vue'
 import Header from '@common/Header.vue'
 import Footer from '@common/Footer.vue'
 
 export default {
   components: {
+    appMetaMaskCheck: MetaMaskCheck,
     appHeader: Header,
     appFooter: Footer,
+  },
+
+  created() {
+    // dispatch actions for MetaMask checks
+    this.$store.dispatch('set_requiredNetwork') // check required network
+    this.$store.dispatch('set_currentNetwork') // check network currently connected to
+    this.$store.dispatch('set_isMetaMaskInstalled') // ensure MetaMask is installed
+    this.$store.dispatch('set_isMetaMaskUnlocked') // ensure MetaMask is unlocked (async)
+    this.$store.dispatch('set_isMetaMaskOnCorrectNetwork') // ensure MetaMask is connected to the correct network (async)
   },
 }
 </script>
 
 <style lang="stylus">
-// "variables" is a Webpack alias (defined in /config/index.js) which points to /src/themes/quasar.variables.styl
+// "variables" is a Webpack alias which points to /src/themes/quasar.variables.styl
 @import '~variables';
 
 .layout-padding {

@@ -248,14 +248,18 @@ export function createTXLink(network, txhash) {
 }
 
 export function trimErrorMessage(msg) {
-  // msg: string, error message to trim in length
+  // msg: string or object, error message who's length to trim
   const maxLength = 199
+  const explanationMsg = 'The portion of the error message shown below is likely ' +
+    'the most important, but the full error message can be found in the console.<br><br>'
+
   if (typeof msg === 'object') {
     // if input is an object, look for message property
-    msg = msg.message.slice(0, maxLength) + ' .....<br><br>The portion of the error message shown above is likely the most important, but the full error message can be found in the console.'
+    msg = `${explanationMsg}<i>${msg.message.slice(0, maxLength)}.....</i>`
+
   } else if (typeof msg === 'string') {
     // if input is a string, just trim it directly
-    msg = msg.slice(0, maxLength) + ' .....<br><br>The portion of the error message shown above is likely the most important, but the full error message can be found in the console.'
+    msg = `${explanationMsg}<i>${msg.slice(0, maxLength)}.....</i>`
   }
 
   return msg
