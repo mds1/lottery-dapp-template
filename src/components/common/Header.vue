@@ -15,7 +15,6 @@
         <ul>
           <router-link to='/' tag='li' active-class='active-page' exact>
             <a>
-              <!-- span is needed to center text vertically when the logo is taller than the text -->
               Home
             </a>
           </router-link>
@@ -26,7 +25,6 @@
           <!-- contact page -->
           <router-link to='/contact' tag='li' active-class='active-page'>
             <a>
-              <!-- span is needed to center text vertically when the logo is taller than the text -->
               Contact
             </a>
           </router-link>
@@ -41,7 +39,7 @@
 export default {
   data() {
     return {}
-  }
+  },
 }
 </script>
 

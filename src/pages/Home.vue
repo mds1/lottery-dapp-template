@@ -5,7 +5,7 @@
     <!--   1. MetaMask is installed -->
     <!--   2. MetaMask account is unlocked -->
     <!--   3. MetaMask is connected to the correct network -->
-    <app-meta-mask-check></app-meta-mask-check>
+    <app-meta-mask-check/>
 
     <!-- your content -->
     <h3>Ethereum Lottery</h3>
@@ -15,16 +15,16 @@
     <br>
     <p>You are currently connected to the {{ this.$store.state.network.current }} network</p>
 
-    <app-enter-form></app-enter-form>
+    <app-enter-form/>
 
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import web3 from '@ethereum/web3'
+// import { mapActions } from 'vuex'
+// import web3 from '@ethereum/web3'
 import lottery from '@ethereum/lotteryInstance.js'
-import { currentNetwork } from '@common/functions'
+// import { currentNetwork } from '@common/functions'
 // components
 import EnterForm from '@contract/EnterForm.vue'
 import MetaMaskCheck from '@common/MetaMaskCheck.vue'
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       contract: lottery,
-      network: ''
+      network: '',
     }
   },
 
@@ -70,13 +70,13 @@ export default {
   },
 
   methods: {
-    // map actions
-    ...mapActions([
-      'setManager',
-      'setPlayers',
-      'setBalance'
-    ]),
-  }
+    // // map actions
+    // ...mapActions([
+    //   'setManager',
+    //   'setPlayers',
+    //   'setBalance',
+    // ]),
+  },
 }
 </script>
 

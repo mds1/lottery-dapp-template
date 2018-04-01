@@ -64,25 +64,25 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { requiredNetwork, currentNetwork } from '@common/functions'
+// import { mapActions } from 'vuex'
+// import { requiredNetwork, currentNetwork } from '@common/functions'
 
 export default {
   data() {
     return {
-      dialogTitle: 'Hold up!'
+      dialogTitle: 'Hold up!',
     }
   },
 
   computed: {
     showDialog: {
-      get: function () {
+      get: function() {
         return !this.$store.state.isMetaMaskInstalled || !this.$store.state.isMetaMaskUnlocked || !this.$store.state.isMetaMaskOnCorrectNetwork
       },
-      set: function (value) {
+      set: function(value) {
         return value
-      }
-    }
+      },
+    },
   },
 
   created() {
@@ -106,19 +106,23 @@ export default {
       if (!this.$store.state.MetaMask.isOnCorrectNetwork && !this.$store.state.MetaMask.isUnlocked) {
         // MetaMask is on the wrong network AND locked
         msg = `You'll need to unlock MetaMask and connect to the ${this.$store.state.network.required} Network for this site to function properly.`
+
       } else if (!this.$store.state.MetaMask.isOnCorrectNetwork) {
         // MetaMask is unlocked, but on the wrong network
         msg = `It looks like you're not connected to the right network. MetaMask must be connected to the ${this.$store.state.network.required} Network for this site to function properly.`
+
       } else if (!this.$store.state.MetaMask.isUnlocked) {
         // MetaMask is on the correct network, but locked
         msg = 'It seems MetaMask is locked. Be sure to unlock MetaMask if you plan to interact with this site.'
+
       } else {
         // We should never get here
         msg = `This message shouldn't be showing, so please let the developer know you saw this. In the meantime, please make sure you have MetaMask installed, unlocked, and connected to the ${this.$store.state.network.required} Network for this site to function properly.`
       }
+
       return msg
-    } // end getDialogMessage
-  } // end methods
+    }, // end getDialogMessage
+  }, // end methods
 } // end export default
 
 </script>

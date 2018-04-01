@@ -31,7 +31,6 @@ export default {
     context.commit('SET_IS_METAMASK_UNLOCKED', isMetaMaskUnlocked)
   },
 
-
   async set_isMetaMaskOnCorrectNetwork(context) {
     // Ensure MetaMask is on the network required by the dapp
     let isMetaMaskOnCorrectNetwork = false
@@ -59,7 +58,6 @@ export default {
     const currentNetwork = await functions.currentNetwork()
     context.commit('SET_CURRENT_NETWORK', currentNetwork)
   },
-
 
   // ======================================================================
   //                      Getting Contract Properties

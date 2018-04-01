@@ -2,17 +2,31 @@
   <!-- generic template for a form to send transaction to a smart contract -->
   <div>
     <div class="form">
-      <form v-on:submit.prevent='formSubmitted'>
+      <form @submit.prevent='formSubmitted'>
 
         <div class="inputs">
-          <q-field label="Value" :label-width='5' :error="$v.value.$error" :error-label="`Value must be greater than or equal to ${minValue}`">
-            <q-input v-model='value' type='number' :min=minValue :step='0.0001' @input="$v.value.$touch()" placeholder='0' suffix='ETH' autofocus/>
+          <q-field
+            label="Value"
+            :label-width='5'
+            :error="$v.value.$error"
+            :error-label="`Value must be greater than or equal to ${minValue}`">
+
+            <q-input
+              v-model='value'
+              type='number'
+              :min=minValue
+              :step='0.0001'
+              @input="$v.value.$touch()"
+              placeholder='0'
+              suffix='ETH'
+              autofocus/>
           </q-field>
         </div>
 
         <br>
 
-        <q-btn :loading='txsent' color="primary" :disabled='$v.$invalid || txsent' v-model='txsent'>Enter Lottery!
+        <q-btn :loading='txsent' color="primary" :disabled='$v.$invalid || txsent' v-model='txsent'>
+          Enter Lottery!
           <!-- configure button appearance for pending transactions  -->
           <q-spinner slot="loading" />
           <span slot="loading">&nbsp;&nbsp;Transaction pending...</span>
@@ -36,7 +50,7 @@ export default {
       value: 0, // default
       minValue: 0.001, // minimum allowed value defined in contract
       txsent: false,
-      txhash: ''
+      txhash: '',
     }
   },
 
@@ -48,30 +62,32 @@ export default {
       required,
       minValue(value) {
         return minValue(this.minValue)(value)
-      }
-    }
+      },
+    },
   },
 
   methods: {
     async formSubmitted() {
 
       // used to access props within promise
-      let vm = this;
+      let vm = this
 
       // update status of transaction
       this.txsent = true
 
       // define variables used to store alert message windows
-      let waitingAlert;
-      let sentAlert;
-      let failedAlert;
-      let confirmedAlert;
+      /* eslint-disable */ // got error that failedAlert and confirmedAlert were not used
+      let waitingAlert
+      let sentAlert
+      let failedAlert
+      let confirmedAlert
+      /* eslint-enable */
 
       // get list of accounts to send tx
       const accounts = await web3.eth.getAccounts()
 
       // ensure account is unlocked
-      if (accounts[0] == undefined) {
+      if (accounts[0] === undefined) {
         // prepare HTML string
         const failedHTML = '<br><br><b>Oops! Something went wrong...</b><br>Be sure to unlock your account to send this transaction. Check MetaMask and enter your password if necessary.<br><br><br>'
         // display failed message to user
@@ -97,15 +113,14 @@ export default {
       // const waitingHTML = 'ff\n\nPlease confirm the transasction using the pop-up MetaMask dialog<br><br><br>'
       waitingAlert = functions.createTXAlert(waitingHTML, 'info')
 
-
       // send tx, with assumption that the first account is the account to send tx from
       const valueInWei = web3.utils.toWei(String(this.value), 'ether')
       await lottery.methods.enterLottery().send({
         from: accounts[0],
-        value: valueInWei
+        value: valueInWei,
       })
 
-        .on('transactionHash', function (txhash) {
+        .on('transactionHash', function(txhash) {
 
           // save off txhash for later
           vm.txhash = txhash
@@ -122,18 +137,20 @@ export default {
 
         }) // end .on('transactionHash')
 
-        .on('receipt', function (receipt) {
+        .on('receipt', function(receipt) {
 
           // receipt.status returns 0x0 if transaction fails, or 0x1 if it succeeds
-          web3.eth.getTransactionReceipt(vm.txhash).then(function (receipt) {
+          web3.eth.getTransactionReceipt(vm.txhash).then(function(receipt) {
             if (receipt.status === '0x0') {
               // TRANSACTION FAILED --------------------------------------------------
 
               // dismiss previous alert
               sentAlert()
               // write error to console
+              // eslint-disable-next-line no-undef
               console.log(err)
               // shorten long error messages that may contain code references
+              // eslint-disable-next-line no-undef
               const errmsg = functions.trimErrorMessage(err.message)
               // generate hyperlink to the transaction on ethercsan
               const txidHTML = functions.createTXLink(vm.network, vm.txhash)
@@ -170,7 +187,7 @@ export default {
           }) // end web3.eth.getTransactionReceipt
         }) // end .on(receipt)
 
-        .catch(function (err) {
+        .catch(function(err) {
 
           // if tx fails, dismiss old alert and give an update
           if (typeof waitingAlert !== 'undefined') {
@@ -185,7 +202,7 @@ export default {
           // shorten long error messages that may contain code references
           const errmsg = functions.trimErrorMessage(err.message)
 
-          let failedHTML;
+          let failedHTML
           // finish generating message
           if (vm.txhash === '') {
             // transaction was never sent, so don't include transaction ID
@@ -201,12 +218,12 @@ export default {
           failedAlert = functions.createTXAlert(failedHTML, 'negative')
         }) // end catch
 
-        .finally(function () {
+        .finally(function() {
           // reset status of txsent flag, so user can send another tx if desired
           vm.txsent = false
-        }); // end finally
-    } // end formSubmitted
-  } // end methods
+        }) // end finally
+    }, // end formSubmitted
+  }, // end methods
 } // end export default
 
 </script>

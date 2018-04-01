@@ -45,25 +45,24 @@ export function formatNumberForWeb3(value) {
   //   - formats number as a string
   // source: https://stackoverflow.com/questions/16139452/how-to-convert-big-negative-scientific-notation-number-into-decimal-notation-str
 
-  var data = String(value).split(/[eE]/)
-  if (data.length == 1) {
+  let data = String(value).split(/[eE]/)
+  if (data.length === 1) {
     return data[0]
   }
 
-  var z = '', sign = this < 0 ? '-' : '',
+  let z = '', sign = this < 0 ? '-' : '',
     str = data[0].replace('.', ''),
-    mag = Number(data[1]) + 1;
+    mag = Number(data[1]) + 1
 
   if (mag < 0) {
-    z = sign + '0.';
-    while (mag++) z += '0';
-    return z + str.replace(/^\-/, '');
+    z = sign + '0.'
+    while (mag++) z += '0'
+    return z + str.replace(/^-/, '')
   }
-  mag -= str.length;
-  while (mag--) z += '0';
-  return str + z;
+  mag -= str.length
+  while (mag--) z += '0'
+  return str + z
 }
-
 
 // =======================================================================================
 //                                  ENS Functions
@@ -76,24 +75,24 @@ const resolverContractAbi = [{ 'constant': true, 'inputs': [{ 'name': 'interface
 const ensAddress = '0x314159265dd8dbb310642f98f50c066173c1259b'
 
 // set ensContract
-export const ensContract = new web3.eth.Contract(ensContractAbi, ensAddress);
+export const ensContract = new web3.eth.Contract(ensContractAbi, ensAddress)
 
 function sha3(str, opt) {
   // source: https://github.com/ethereum/meteor-package-elements/blob/master/addressInput.js
-  return "0x" + web3.utils.sha3(str, opt).replace("0x", "");
+  return '0x' + web3.utils.sha3(str, opt).replace('0x', '')
 }
 
 function namehash(name) {
   // source: https://github.com/ethereum/meteor-package-elements/blob/master/addressInput.js
-  var node =
-    "0x0000000000000000000000000000000000000000000000000000000000000000";
-  if (name != "") {
-    var labels = name.split(".");
-    for (var i = labels.length - 1; i >= 0; i--) {
-      node = sha3(node + sha3(labels[i]).slice(2), { encoding: "hex" });
+  let node =
+    '0x0000000000000000000000000000000000000000000000000000000000000000'
+  if (name !== '') {
+    let labels = name.split('.')
+    for (let i = labels.length - 1; i >= 0; i--) {
+      node = sha3(node + sha3(labels[i]).slice(2), { encoding: 'hex' })
     }
   }
-  return node.toString();
+  return node.toString()
 }
 
 export async function getAddr(name, ens, callback) {
@@ -106,59 +105,58 @@ export async function getAddr(name, ens, callback) {
     return null
   }
 
-  var resolverContract = new web3.eth.Contract(resolverContractAbi);
+  let resolverContract = new web3.eth.Contract(resolverContractAbi)
 
-  var node = namehash(name);
+  let node = namehash(name)
   // get a resolver address for that name
   ens.methods
     .resolver(node)
     .call()
-    .then(function (resolverAddress) {
-      if (resolverAddress != 0) {
+    .then(function(resolverAddress) {
+      if (resolverAddress !== 0) {
         // if you find one, find the addr of that resolver
-        resolverContract.options.address = resolverAddress;
+        resolverContract.options.address = resolverAddress
         resolverContract.methods
           .addr(node)
           .call()
-          .then(function (result) {
-            if (result != 0 && callback) {
-              callback(result);
+          .then(function(result) {
+            if (result !== 0 && callback) {
+              callback(result)
             }
-          });
+          })
       } else {
         // NEW: added this else block to ensure address state is set to null if invalid ENS name is entered
         // (this else block was not part of the original source code linked above)
         callback(null)
       }
-    });
+    })
 }
 
-function getName(address, ens, callback) {
-  // source: https://github.com/ethereum/meteor-package-elements/blob/master/addressInput.js
-  var resolverContract = new web3.eth.Contract(resolverContractAbi);
-  var node = namehash(
-    address.toLowerCase().replace("0x", "") + ".addr.reverse"
-  );
+// function getName (address, ens, callback) {
+//   // source: https://github.com/ethereum/meteor-package-elements/blob/master/addressInput.js
+//   var resolverContract = new web3.eth.Contract(resolverContractAbi)
+//   var node = namehash(
+//     address.toLowerCase().replace('0x', '') + '.addr.reverse'
+//   )
 
-  // get a resolver address for that name
-  ens.methods.resolver(node).call(function (error, resolverAddress) {
-    if (error) {
-      console.log("Error from ens getName: ", error);
-      return;
-    }
+//   // get a resolver address for that name
+//   ens.methods.resolver(node).call(function (error, resolverAddress) {
+//     if (error) {
+//       console.log('Error from ens getName: ', error)
+//       return
+//     }
 
-    if (resolverAddress != 0) {
-      // if you find one, find the name on that resolver
-      resolverContract.options.address = resolverAddress;
-      resolverContract.methods.name(node, function (error, result) {
-        if (!error && result != 0 && callback) {
-          callback(result);
-        }
-      });
-    }
-  });
-}
-
+//     if (resolverAddress !== 0) {
+//       // if you find one, find the name on that resolver
+//       resolverContract.options.address = resolverAddress
+//       resolverContract.methods.name(node, function (error, result) {
+//         if (!error && result !== 0 && callback) {
+//           callback(result)
+//         }
+//       })
+//     }
+//   })
+// }
 
 // =======================================================================================
 //                                       Validators
@@ -166,7 +164,7 @@ function getName(address, ens, callback) {
 
 // Check if an Ethereum address is valid
 export function isValidETHAddress(address) {
-  return web3.utils.isAddress(address) && address.length == 42
+  return web3.utils.isAddress(address) && address.length === 42
 }
 
 export async function isValidENSDomain(name, ens) {
@@ -174,29 +172,28 @@ export async function isValidENSDomain(name, ens) {
   // modified from getAddr: https://github.com/ethereum/meteor-package-elements/blob/master/addressInput.js
 
   // ensure address ends with .eth
-  if (name.slice(-4) !== ".eth") {
+  if (name.slice(-4) !== '.eth') {
     return false
   }
 
-  var resolverContract = new web3.eth.Contract(resolverContractAbi);
+  // var resolverContract = new web3.eth.Contract(resolverContractAbi)
 
-  var node = namehash(name);
+  let node = namehash(name)
 
-  let result;
+  let result
   // get a resolver address for that name
   await ens.methods
     .resolver(node)
     .call()
-    .then(function (resolverAddress) {
-      if (resolverAddress != 0) {
+    .then(function(resolverAddress) {
+      if (resolverAddress !== 0) {
         result = true
-
       } else {
         // NEW: added this else block to ensure address state is set to null if invalid ENS name is entered
         // (this else block was not part of the original source code linked above)
         result = false
       }
-    });
+    })
 
   return result
 }
@@ -216,18 +213,18 @@ export function createTXAlert(html, type) {
     actions: [
       {
         label: 'Dismiss',
-      }
-    ]
+      },
+    ],
   })
 
   // use setTimeout(function, 0) to ensure element is created by the time we add HTML
-  setTimeout(function () {
+  setTimeout(function() {
     // the div containing the text has no class or id, so we first get its parent
     // based on its classes
     const el = document.getElementsByClassName('q-alert-content col self-center')
     // then we update the html of the most recently added notification
     el[el.length - 1].firstChild.innerHTML = html
-  }, 0);
+  }, 0)
 
   return alert
 }
@@ -240,8 +237,7 @@ export function createTXLink(network, txhash) {
   let url
   if (network.toUpperCase() === 'MAIN') {
     url = 'https://etherscan.io/tx/' + txhash
-  }
-  else {
+  } else {
     url = 'https://' + network + '.etherscan.io/tx/' + txhash
   }
 
@@ -257,9 +253,7 @@ export function trimErrorMessage(msg) {
   if (typeof msg === 'object') {
     // if input is an object, look for message property
     msg = msg.message.slice(0, maxLength) + ' .....<br><br>The portion of the error message shown above is likely the most important, but the full error message can be found in the console.'
-  }
-
-  else if (typeof msg === 'string') {
+  } else if (typeof msg === 'string') {
     // if input is a string, just trim it directly
     msg = msg.slice(0, maxLength) + ' .....<br><br>The portion of the error message shown above is likely the most important, but the full error message can be found in the console.'
   }

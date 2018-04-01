@@ -3,18 +3,18 @@
   <div id="q-app" class="Site">
     <!-- header -->
     <div class="Site-header">
-      <app-header></app-header>
+      <app-header/>
     </div>
 
     <!-- main section -->
     <main class='Site-content'>
-      <router-view></router-view>
+      <router-view/>
     </main>
 
     <!-- footer -->
     <div class="Site-footer">
-      <div id="footerBar"></div>
-      <app-footer></app-footer>
+      <div id="footerBar"/>
+      <app-footer/>
     </div>
 
   </div>
@@ -31,7 +31,7 @@ export default {
   components: {
     appHeader: Header,
     appFooter: Footer,
-  }
+  },
 }
 </script>
 

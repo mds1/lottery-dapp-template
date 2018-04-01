@@ -3,7 +3,7 @@ export default {
   MetaMask: {
     isInstalled: true,
     isUnlocked: true,
-    isOnCorrectNetwork: true
+    isOnCorrectNetwork: true,
   },
 
   // Network information
@@ -17,5 +17,5 @@ export default {
     manager: '', // address of who deployed contract
     players: [], // list of entered addresses
     balance: '', // contract balance
-  }
+  },
 }
