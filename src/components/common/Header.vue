@@ -22,10 +22,20 @@
           <!-- add spaces -->
           &nbsp;&nbsp;&nbsp;&nbsp;
 
-          <!-- contact page -->
+          <!-- Smart contract source code page -->
           <router-link :to='{ name: "contractSource"}' tag='li' active-class='active-page'>
             <a>
               Smart Contract
+            </a>
+          </router-link>
+
+          <!-- add spaces -->
+          &nbsp;&nbsp;&nbsp;&nbsp;
+
+          <!-- FAQ -->
+          <router-link :to='{ name: "faq"}' tag='li' active-class='active-page'>
+            <a>
+              FAQ
             </a>
           </router-link>
         </ul>
