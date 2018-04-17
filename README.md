@@ -1,8 +1,15 @@
 # Ethereum Dapp Template
+Provides a standard template for creating dapps without using Truffle. A simple lottery smart contract, Lottery.sol, is used for this template. [Quasar Framework](https://github.com/quasarframework/quasar) is used as the foundation, along with [Mocha](https://github.com/mochajs/mocha) and [Gananche CLI](https://github.com/trufflesuite/ganache-cli) for testing, [vuex](https://github.com/vuejs/vuex) for state management, and [vue-router](https://github.com/vuejs/vue-router) for routing. The included [web3](https://github.com/ethereum/web3.js) version is 1.0.0-beta.26. Functions for [Ethereum Name Service](https://ens.domains/) (ENS) support are included but not used. For a sample ENS implementation, see [this](https://github.com/mds1/send-eth-tx) simple webapp used to send Ethereum transactions.
 
-Provides a standard template for creating dapps without using Truffle. A simple lottery smart contract, Lottery.sol, is used for this template. [Quasar Framework](https://github.com/quasarframework/quasar) is used as the foundation, along with [Mocha](https://github.com/mochajs/mocha) and [Gananche CLI](https://github.com/trufflesuite/ganache-cli) for testing, [vuex](https://github.com/vuejs/vuex) for state management, and [vue-router](https://github.com/vuejs/vue-router) for routing. The included [web3](https://github.com/ethereum/web3.js) version is 1.0.0-beta.26. Functions for Ethereum Name Service (ENS) support are included but not used. For a sample ENS implementation, see [this](https://github.com/mds1/send-eth-tx) simple webapp used to send Ethereum transactions.
+This code structure of the `src/ethereum` folder was based off the format used in Stephen Grider's Udemy Course, [Ethereum and Solidity: The Complete Developer's Guide](https://www.udemy.com/ethereum-and-solidity-the-complete-developers-guide)
 
-This code structure was based off the format used in Stephen Grider's Udemy Course, [Ethereum and Solidity: The Complete Developer's Guide](https://www.udemy.com/ethereum-and-solidity-the-complete-developers-guide)
+## Updates on the Way!
+Over the next few weeks, this template will be updated with the following features:
+* [Truffle](http://truffleframework.com/) support for compiling and deploying
+* Inclusion of the [Chai](http://www.chaijs.com/) Assertion Library
+* Solidity random number generation via the random.org API with [Oraclize](http://www.oraclize.it/)
+* Addition of a "status" area on the site to ensure it is very clear whether or not they are successfully connected to [MetaMask](https://metamask.io/)
+* Completion of the "Smart Contract" tab to display the contract source code
 
 ## Configuration
 To configure this template for your own dapp, follow the steps below. In steps where you must replace the default placeholder text and variables, use case-sensitive replacements (i.e. variables Lottery and lottery are not interchangeable). These steps will not specify which cases need to be replaced, so it is suggested to always use a case-sensitive find and replace (e.g. first replace `Lottery` with `YourContract`, then replace `lottery` with `yourContract`)
