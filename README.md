@@ -12,6 +12,8 @@ Over the next few weeks, this template will be updated with the following featur
 * Completion of the "Smart Contract" tab to display the contract source code
 
 ## Configuration
+*Note: This section may be out of date as the above updates are added. This note will be removed once this section has been updated as needed.*
+
 To configure this template for your own dapp, follow the steps below. In steps where you must replace the default placeholder text and variables, use case-sensitive replacements (i.e. variables Lottery and lottery are not interchangeable). These steps will not specify which cases need to be replaced, so it is suggested to always use a case-sensitive find and replace (e.g. first replace `Lottery` with `YourContract`, then replace `lottery` with `yourContract`)
 
 1. Run `$ npm install`
