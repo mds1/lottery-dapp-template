@@ -77,10 +77,10 @@ export default {
       this.txsent = true // update status of transaction
 
       // define variables used to store alert message windows
-      let waitingAlert
-      let sentAlert
-      let failedAlert // eslint-disable-line no-unused-vars
-      let confirmedAlert // eslint-disable-line no-unused-vars
+      // let waitingAlert
+      // let sentAlert
+      // let failedAlert // eslint-disable-line no-unused-vars
+      // let confirmedAlert // eslint-disable-line no-unused-vars
 
       // get list of accounts to send tx
       const accounts = await web3.eth.getAccounts()
@@ -90,7 +90,7 @@ export default {
         // display failed message to user
         const failedHTML = '<br><br><b>Oops! Something went wrong...</b><br>Be sure to unlock ' +
           'your account to send this transaction. Check MetaMask and enter your password if necessary.<br><br><br>'
-        failedAlert = functions.createTXAlert(failedHTML, 'negative')
+        functions.createTXAlert(failedHTML, 'negative')
         // reset status of txsent flag, so user can send another tx if desired
         this.txsent = false
         return
@@ -101,7 +101,7 @@ export default {
         // display failed message to user
         const failedHTML = `<br><br><b>Oops! Something went wrong...</b><br>You must be connected to the ${this.requiredNetwork} ` +
           `network to send this transaction. You are currently connected to the ${this.$store.state.network.current} network.<br><br><br>`
-        failedAlert = functions.createTXAlert(failedHTML, 'negative')
+        functions.createTXAlert(failedHTML, 'negative')
         // reset status of txsent flag, so user can send another tx if desired
         this.txsent = false
         return
@@ -110,7 +110,7 @@ export default {
       // NOW BOTH CHECKS PASSED: continue with transaction
       // generate alert that transaction will be sent
       const waitingHTML = '<br><br>Please confirm the transasction using the pop-up MetaMask dialog<br><br><br>'
-      waitingAlert = functions.createTXAlert(waitingHTML, 'info')
+      functions.createTXAlert(waitingHTML, 'info')
 
       // send tx, with assumption that the first account is the account to send tx from
       const valueInWei = web3.utils.toWei(String(this.value), 'ether')
@@ -124,7 +124,7 @@ export default {
           // save off txhash for later
           _this.txhash = txhash
           // dismiss old alert
-          waitingAlert()
+          functions.deleteAllTXAlerts()
           // prepare new message
           const sentHTML1 = '<br><br>Waiting for the transaction to be confirmed by the Ethereum network. ' +
             'This will take between 15 and 60 seconds, but sometimes can be even longer. Click the transaction ' +
@@ -134,7 +134,7 @@ export default {
           // finish generating message
           const sentHTML = `${sentHTML1} ${txidHTML} <br><br><br>`
           // display updated message to user
-          sentAlert = functions.createTXAlert(sentHTML, 'warning')
+          functions.createTXAlert(sentHTML, 'warning')
 
         }) // end .on('transactionHash')
 
@@ -146,7 +146,7 @@ export default {
             if (receipt.status === '0x0') {
               // TRANSACTION FAILED
               // dismiss previous alert
-              sentAlert()
+              functions.deleteAllTXAlerts()
               // shorten long error messages that may contain code references
               const errmsg = functions.trimErrorMessage(err.message) // eslint-disable-line no-undef
               // generate hyperlink to the transaction on ethercsan
@@ -154,7 +154,7 @@ export default {
               // finish generating message
               let failedHTML = '<br><br><b>Oops! Something went wrong...</b><br>' + errmsg + ' For reference, your transaction ID is below.<br><br>' + txidHTML + '<br><br><br>'
               // display updated alert to user
-              failedAlert = functions.createTXAlert(failedHTML, 'negative')
+              functions.createTXAlert(failedHTML, 'negative')
               // re-throw error so it shows in the console
               throw new Error(err) // eslint-disable-line no-undef
 
@@ -174,13 +174,13 @@ export default {
               //     at checkConfirmation (webpack-internal:///./node_modules/web3-core-method/src/index.js:340:14)
 
               // once tx is confirmed, dismiss old alert and give an update
-              sentAlert()
+              functions.deleteAllTXAlerts()
               // generate hyperlink to the transaction on ethercsan
               const txidHTML = functions.createTXLink(_this.requiredNetwork, _this.txhash)
               // finish generating message
               const confirmedHTML = `<br><br><b>Success!</b><br>Your transaction has been confirmed. For reference, your transaction ID is below.<br><br> ${txidHTML} <br><br><br>`
               // display updated alert to user
-              confirmedAlert = functions.createTXAlert(confirmedHTML, 'positive')
+              functions.createTXAlert(confirmedHTML, 'positive')
 
             } // end if receipt.status === '0x0' / else
           }) // end web3.eth.getTransactionReceipt
@@ -189,8 +189,7 @@ export default {
         .catch(function(err) {
 
           // if tx fails, dismiss any old alerts, then give an update
-          if (typeof waitingAlert !== 'undefined') waitingAlert()
-          if (typeof sentAlert !== 'undefined') sentAlert()
+          functions.deleteAllTXAlerts()
 
           // shorten long error messages that may contain code references
           const errmsg = functions.trimErrorMessage(err.message)
@@ -208,7 +207,7 @@ export default {
           }
 
           // display alert
-          failedAlert = functions.createTXAlert(failedHTML, 'negative')
+          functions.createTXAlert(failedHTML, 'negative')
 
           // re-throw error so it shows in the console
           throw new Error(err)
