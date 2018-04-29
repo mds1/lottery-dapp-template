@@ -12,26 +12,26 @@
   "dependencies": {
     "chai": "^4.1.2",
     "ganache-cli": "^6.1.0",
-    "mocha": "^5.0.5",
+    "mocha": "^5.1.1",
     "truffle-hdwallet-provider": "0.0.3",
     "vuelidate": "^0.6.2",
     "web3": "^1.0.0-beta.26",
-    "websocket": "^1.0.25"
+    "websocket": "^1.0.26"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
+    "babel-eslint": "^8.2.3",
     "eslint": "^4.18.2",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^2.0.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "eslint-plugin-vue": "^4.3.0",
-    "prettier": "^1.11.1",
+    "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-vue": "^4.5.0",
+    "prettier": "^1.12.1",
     "quasar-cli": "^0.15.14"
   },
   "engines": {
