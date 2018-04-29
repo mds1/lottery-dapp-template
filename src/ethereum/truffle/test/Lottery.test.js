@@ -21,11 +21,8 @@ contract('Lottery', accounts => {
   })
 
   // check that it assigns the deployer as the manager
-  it('properly assigns the manager', function() {
+  it('properly assigns the manager variable', async function() {
+    assert.equal(await lottery.manager(), accounts[0], 'Variable "manager" was not properly set')
+  })
 
-    // IN PROGRESS
-    //
-    // ADD TESTS
-
-  }) // end 'it' block
 }) // end 'contract' block

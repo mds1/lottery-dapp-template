@@ -34,6 +34,36 @@ export async function currentNetwork() {
   }
 }
 
+export function createEtherscanAddressLink(network, address) {
+  // network: string, ethereum network the address is on (e.g. main, ropsten, etc.)
+  // address: address to generate link for
+
+  // generate and return URL
+  if (network.toUpperCase() === 'MAIN') {
+    return `https://etherscan.io/address/${address}`
+  } else {
+    return `https://${network}.etherscan.io/address/${address}`
+  }
+}
+
+export function getSourceCodeFromEtherscan(network, address) {
+  // network: string, ethereum network the address is on (e.g. main, ropsten, etc.)
+  // address: address to generate link for
+
+  // generate and return URL
+  let url
+  if (network.toUpperCase() === 'MAIN') {
+    url = `https://etherscan.io/address/${address}#code`
+  } else {
+    url = `https://${network}.etherscan.io/address/${address}#code`
+  }
+
+  // copy source code
+  // TO DO
+
+  return url
+}
+
 export function capitalizeFirstLetter(string) {
   // capitalize the first letter of a string
   return string.charAt(0).toUpperCase() + string.slice(1)
@@ -244,15 +274,15 @@ export function createTXLink(network, txhash) {
   // generate URL
   let url
   if (network.toUpperCase() === 'MAIN') {
-    url = 'https://etherscan.io/tx/' + txhash
+    url = `https://etherscan.io/tx/${txhash}`
   } else {
-    url = 'https://' + network + '.etherscan.io/tx/' + txhash
+    url = `https://${network}.etherscan.io/tx/${txhash}`
   }
 
-  const urlHTML = '<a href=' + url + ' target="_blank">' + txhash + '</a>'
+  const urlHTML = `<a href=${url} target="_blank">${txhash}</a>`
 
   // put together HTML string
-  return 'Transaction ID: ' + urlHTML
+  return `Transaction ID: ${urlHTML}`
 }
 
 export function trimErrorMessage(msg) {

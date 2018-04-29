@@ -5,11 +5,12 @@ This template aims to simplify the process of creating a fully-featured front-en
 
 ## Updates on the Way!
 Over the next few weeks, this template will be updated with the following features:
-* [Truffle](http://truffleframework.com/) support for compiling and deploying
-* Inclusion of the [Chai](http://www.chaijs.com/) Assertion Library
-* Solidity random number generation via the random.org API with [Oraclize](http://www.oraclize.it/)
-* Addition of a "status" area on the site to ensure it is very clear whether or not they are successfully connected to [MetaMask](https://metamask.io/)
-* Completion of the "Smart Contract" tab to display the contract source code
+* [x] [Truffle](http://truffleframework.com/) support for compiling and deploying
+* [x] Inclusion of the [Chai](http://www.chaijs.com/) Assertion Library
+* [ ] Solidity random number generation via the random.org API with [Oraclize](http://www.oraclize.it/). See my Oraclize tutorial [here](https://medium.com/@msolomon44/using-apis-in-your-ethereum-smart-contract-with-oraclize-95656434292e) for details on how this will be implemented
+* [ ] Addition of a "status" area on the site to ensure it is very clear whether or not they are successfully connected to [MetaMask](https://metamask.io/)
+* [ ] Completion of the "Smart Contract" tab to display the contract source code
+* [ ] More robust set of default tests
 
 ## Configuration
 To configure this template for your own dapp, follow the steps below. In steps where you must replace the default placeholder text and variables, use case-sensitive replacements (i.e. variables Lottery and lottery are not interchangeable). These steps will not specify which cases need to be replaced, so it is suggested to always use a case-sensitive find and replace (e.g. first replace `Lottery` with `YourContract`, then replace `lottery` with `yourContract`)
@@ -30,7 +31,7 @@ To configure this template for your own dapp, follow the steps below. In steps w
     1. If necessary, uncomment line 29 of src/ethereum/deploy.js and add any input arguments
     2. If not in the ethereum folder: `$ cd ethereum`
     2. Deploy the contract: `$ node deploy.js`
-9. In src/ethereum/lotteryInstance.js, change the example address on line 12 to the address the contract was deployed to in step 9. Also replace all instances of lottery with your contract's name. This file allows you to access the contract instance elsewhere by just importing this file (steps for this are provided in the comments of this file)
+9. In src/ethereum/lotteryInstance.js, change the example address on line 12 to the address the contract was deployed to in step 9. Also replace all instances of lottery with your contract's name. This file allows you to access the contract instance elsewhere by just importing this file (steps for this are provided in the comments of this file). This file is also used to correctly link to Etherscan on the Smart Contract tab (`ContractSource.vue`)
 10. In src/ethereum/lotteryGeneral.js, replace all instances of lottery to your contract's name. This file allows you to access a given instance of the contract by importing this function and passing it the contract's address (steps for this are provided in the comments of this file)
     1. Example use case is you have one contract that a user will use to deploy their own contracts, and you want to access their specific contract instance
     2. You may not need this functionality, in which case you can safely delete this file. This template does not use this functionality, and it is just included for reference.
