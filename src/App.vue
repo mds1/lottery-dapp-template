@@ -33,12 +33,11 @@
 <script>
 /*
 TO DO:
-  0. Make sure user inputs are sanitized with regexp
-  1. Update Lottery.sol to:
-       - Use Oraclize or Town crier for random number generation
-       - Set a user's chance of winning equal to entryPaid / potSize
+  0. Make sure user inputs are sanitized
+  1. Better handling of seed phrase and Infura API key
   2. Add contract tab in header to show embedded smart contract code
-  3. Read Web3 design principles at the link below and add corresponding features
+  3. Add "status" box near the header showing MetaMask
+  4. Read Web3 design principles at the link below and incorporate ideas
      https://medium.com/@lyricalpolymath/web3-design-principles-f21db2f240c1
 */
 
