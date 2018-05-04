@@ -3,6 +3,7 @@
 .thumbs.db
 node_modules
 /dist
+/build
 /src-cordova/platforms
 /src-cordova/plugins
 /src-cordova/www
@@ -27,6 +28,3 @@ dll
 webpack_config/server.key
 webpack_config/server.crt
 webpack_config/server.csr
-
-# Ethereum build folder
-src/ethereum/build
