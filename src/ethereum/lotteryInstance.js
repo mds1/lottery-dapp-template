@@ -10,7 +10,7 @@ import lottery from './truffle/build/contracts/Lottery.json'
 
 const instance = new web3.eth.Contract(lottery.abi,
   // *REPLACE* this address with the address of your deployed contract
-  '0xa7dfda3859762edd00c355d23131501751ee6bda'
+  '0x170732ddd535ca37245ac8e24677f87c9a232965'
 )
 
 export default instance

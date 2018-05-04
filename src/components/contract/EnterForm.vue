@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       value: 0, // default
-      minValue: 0.001, // minimum allowed value defined in contract
+      minValue: 0.005, // minimum allowed value defined in contract
       txsent: false,
       txhash: '',
       requiredNetwork: this.$store.state.network.required,
@@ -221,7 +221,6 @@ export default {
     }, // end formSubmitted
   }, // end methods
 } // end export default
-
 </script>
 
 <style lang="stylus" scoped>
