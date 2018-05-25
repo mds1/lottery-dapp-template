@@ -10,16 +10,19 @@ const compiledLottery = require('../ethereum/build/Lottery.json')
 let accounts
 let lottery
 
-beforeEach(async () => {
+// Code shown here is outdated and not applicable, but was left for posterity
+// Tests for this project can be found in src/ethereum/truffle/test/Lottery.test.js
+
+beforeEach(async() => {
   accounts = await web3.eth.getAccounts()
   // Deploy contract
   lottery = await new web3.eth.Contract(JSON.parse(compiledLottery.interface))
     .deploy({
-      data: compiledLottery.bytecode
+      data: compiledLottery.bytecode,
     })
     .send({
       from: accounts[0],
-      gas: '1000000'
+      gas: '1000000',
     })
   lottery.setProvider(provider)
 })

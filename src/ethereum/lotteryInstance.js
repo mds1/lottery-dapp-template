@@ -4,9 +4,10 @@ import lottery from './truffle/build/contracts/Lottery.json'
 
 // Create and export instance of the contract
 // This allows us to simply import this file to interact with the deployed contract, e.g:
-//
-//    import lottery from '@ethereum/lotteryInstance.js'
-//    const output = await lottery.methods.someMethod().call()
+/*
+    import lottery from '@ethereum/lotteryInstance.js'
+    const output = await lottery.methods.someMethod().call()
+*/
 
 const instance = new web3.eth.Contract(lottery.abi,
   // *REPLACE* this address with the address of your deployed contract
