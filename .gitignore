@@ -28,3 +28,6 @@ dll
 webpack_config/server.key
 webpack_config/server.crt
 webpack_config/server.csr
+
+# create config.js file to store API keys, seed phrase, etc.
+config.js

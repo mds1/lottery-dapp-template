@@ -1,7 +1,7 @@
 // Configuration for your app
 let path = require('path')
 
-module.exports = function (ctx) {
+module.exports = function(ctx) {
   return {
     plugins: [
       'vuelidate',
@@ -28,7 +28,7 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       useNotifier: false,
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -43,6 +43,7 @@ module.exports = function (ctx) {
           '@pages': path.resolve(__dirname, './src/pages'),
           '@ethereum': path.resolve(__dirname, './src/ethereum'),
           '@src': path.resolve(__dirname, './src'),
+          '@root': path.resolve(__dirname, './'),
         }
       },
     },
@@ -114,7 +115,7 @@ module.exports = function (ctx) {
       // id: 'org.cordova.quasar.app'
     },
     electron: {
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         // do something with cfg
       },
       packager: {
