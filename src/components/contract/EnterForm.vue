@@ -27,7 +27,7 @@
         <br>
 
         <!-- button to send transaction -->
-        <q-btn :loading='txsent' color="primary" :disabled='$v.$invalid || txsent' v-model='txsent'>
+        <q-btn :loading='txsent' color="primary" :disabled='$v.$invalid || txsent' v-model='txsent' @click="formSubmitted">
           Enter Lottery!
           <!-- configure button appearance for pending transactions  -->
           <q-spinner slot="loading" />
